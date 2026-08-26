@@ -1,0 +1,24 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        //sort based on time , increasing order
+        Arrays.sort(intervals , (a,b)->a[0]-b[0]);
+
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+
+        List<int[]> result = new ArrayList<>();
+
+        for(int[] interval : intervals){
+            if(end >= interval[0])
+                end = Math.max(end , interval[1]);
+            else {
+                result.add(new int[]{start , end}); // add merged intervals
+                start = interval[0]; //store new start
+                end = interval[1]; //store new end
+            }
+        }
+
+        result.add(new int[]{start,end});
+        return result.toArray(new int[0][]);
+    }
+}
